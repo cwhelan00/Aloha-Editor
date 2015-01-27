@@ -386,7 +386,14 @@ define([
 		var boundaries = Boundaries.fromRanges(ranges);
 		var parentNode = node.parentNode;
 		var nidx = Dom.nodeIndex(node);
-		parentNode.removeChild(node);
+		// what are the chances this fucks everything up??
+		// old -- parentNode.removeChild(node);
+		// new
+		// remove if the element you are trying to remove is not the original content editable element
+		if(node.className.indexof('aloha-editable') >= 0){
+			parentNode.removeChild(node);
+		}
+		// edited by cwhelan00
 		var adjusted = adjustBoundaries(
 			adjustBoundaryAfterRemove,
 			boundaries,
